@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multas: Información Completa</title>
+    <style>
+        /* Estilos generales */
+        :root {
+            --primary-color: #d32f2f;
+            --primary-dark: #9a0007;
+            --primary-light: #ff6659;
+            --secondary-color: #424242;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --text-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Encabezado */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Barra de navegación */
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        /* Secciones principales */
+        section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--medium-gray);
+        }
+
+        section h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* Cards de tipos de multas */
+        .multas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .multa-card {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .multa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .multa-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .multa-body {
+            padding: 1.5rem;
+        }
+
+        .multa-body p {
+            margin-bottom: 1rem;
+        }
+
+        .sancion {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Tabla */
+        .tabla-multas {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .tabla-multas th,
+        .tabla-multas td {
+            padding: 1rem;
+            border: 1px solid var(--medium-gray);
+            text-align: left;
+        }
+
+        .tabla-multas th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tabla-multas tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        .tabla-multas tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Proceso de impugnación */
+        .proceso-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        /* Sección preguntas frecuentes */
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Call to action */
+        .cta {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .cta h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Imágenes e iconos */
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 0.5rem;
+            display: block;
+            background-color: #ccc;
+            border-radius: 25px;
+        }
+
+        .multa-image {
+            height: 150px;
+            background-color: #e1e1e1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #555;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin: 1rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .proceso-steps {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <h1>Todo sobre Multas</h1>
+            <p>Información completa, tipos, normativas y cómo proceder ante una sanción</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#que-son">¿Qué son?</a></li>
+            <li><a href="#tipos">Tipos</a></li>
+            <li><a href="#proceso">Proceso</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#faq">Preguntas Frecuentes</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="que-son">
+            <h2>¿Qué son las multas?</h2>
+            <p>Las multas son sanciones económicas impuestas por autoridades competentes cuando una persona física o jurídica infringe una normativa o ley. Constituyen un mecanismo disuasorio y correctivo para garantizar el cumplimiento de las normas establecidas en diferentes ámbitos.</p>
+            
+            <div class="multa-image">Imagen representativa de una multa</div>
+            
+            <p>En términos jurídicos, una multa es una sanción que consiste en el pago de una cantidad determinada de dinero. Se establece como consecuencia de una infracción administrativa, fiscal, de tráfico o de cualquier otra naturaleza contemplada en el ordenamiento jurídico.</p>
+            
+            <p>Las multas tienen una doble finalidad:</p>
+            <ul>
+                <li><strong>Punitiva:</strong> Castigar al infractor por el incumplimiento de la norma.</li>
+                <li><strong>Preventiva:</strong> Disuadir tanto al infractor como al resto de la sociedad de cometer infracciones similares en el futuro.</li>
+            </ul>
+        </section>
+
+        <section id="tipos">
+            <h2>Tipos de Multas</h2>
+            <p>Existen diversos tipos de multas según el ámbito en el que se apliquen. A continuación, presentamos las categorías más comunes:</p>
+
+            <div class="multas-container">
+                <div class="multa-card">
+                    <div class="multa-header">
+                        <h3>Multas de Tráfico</h3>
+                    </div>
+                    <div class="multa-body">
+                        <p>Sanciones impuestas por infracciones al código de circulación o normativas de tráfico. Incluyen exceso de velocidad, estacionamiento indebido, conducir bajo los efectos del alcohol, etc.</p>
+                        <p class="sancion">Sanción: Desde 100€ hasta 1.000€ y posible pérdida de puntos del carnet de conducir.</p>
+                    </div>
+                </div>
+
+                <div class="multa-card">
+                    <div class="multa-header">
+                        <h3>Multas Tributarias</h3>
+                    </div>
+                    <div class="multa-body">
+                        <p>Sanciones impuestas por la administración tributaria por incumplimientos fiscales como no presentar declaraciones, datos incorrectos o fraude fiscal.</p>
+                        <p class="sancion">Sanción: Entre el 50% y el 150% del importe defraudado más intereses de demora.</p>
+                    </div>
+                </div>
+
+                <div class="multa-card">
+                    <div class="multa-header">
+                        <h3>Multas Municipales</h3>
+                    </div>
+                    <div class="multa-body">
+                        <p>Sanciones impuestas por los ayuntamientos por incumplir ordenanzas municipales: ruidos, limpieza, ocupación de vía pública, obras sin licencia, etc.</p>
+                        <p class="sancion">Sanción: Variable según la ordenanza municipal y la gravedad de la infracción.</p>
+                    </div>
+                </div>
+
+                <div class="multa-card">
+                    <div class="multa-header">
+                        <h3>Multas Laborales</h3>
+                    </div>
+                    <div class="multa-body">
+                        <p>Sanciones impuestas por la Inspección de Trabajo por incumplimientos de la normativa laboral: contratación irregular, seguridad y salud, etc.</p>
+                        <p class="sancion">Sanción: Desde 60€ para infracciones leves hasta 819.780€ para muy graves.</p>
+                    </div>
+                </div>
+
+                <div class="multa-card">
+                    <div class="multa-header">
+                        <h3>Multas Medioambientales</h3>
+                    </div>
+                    <div class="multa-body">
+                        <p>Sanciones por daños al medio ambiente, vertidos ilegales, contaminación acústica o actividades sin autorización ambiental.</p>
+                        <p class="sancion">Sanción: Desde 100€ hasta 2.000.000€ para infracciones muy graves.</p>
+                    </div>
+                </div>
+
+                <div class="multa-card">
+                    <div class="multa-header">
+                        <h3>Multas de Consumo</h3>
+                    </div>
+                    <div class="multa-body">
+                        <p>Sanciones a empresas por violaciones de los derechos de los consumidores, publicidad engañosa o productos defectuosos.</p>
+                        <p class="sancion">Sanción: Desde 150€ hasta 600.000€ según la gravedad.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Clasificación por gravedad</h3>
+            <table class="tabla-multas">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Rango de sanción</th>
+                        <th>Prescripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Leves</td>
+                        <td>Infracciones menores que no causan un daño significativo</td>
+                        <td>Entre 100€ y 750€</td>
+                        <td>6 meses - 1 año</td>
+                    </tr>
+                    <tr>
+                        <td>Graves</td>
+                        <td>Infracciones de mayor entidad o reincidencia en faltas leves</td>
+                        <td>Entre 751€ y 1.500€</td>
+                        <td>2 años</td>
+                    </tr>
+                    <tr>
+                        <td>Muy graves</td>
+                        <td>Infracciones que suponen un riesgo importante o daño efectivo</td>
+                        <td>Entre 1.501€ y 3.000€ o más</td>
+                        <td>3 años</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="proceso">
+            <h2>Proceso de Imposición y Recursos</h2>
+            <p>Ante una multa, es importante conocer el procedimiento administrativo y las posibilidades de defensa:</p>
+
+            <h3>¿Cómo se notifica una multa?</h3>
+            <p>Las multas pueden notificarse de varias formas:</p>
+            <ul>
+                <li><strong>En el acto:</strong> Un agente de la autoridad entrega el boletín de denuncia personalmente.</li>
+                <li><strong>Por correo postal:</strong> Mediante carta certificada con acuse de recibo.</li>
+                <li><strong>Por edictos:</strong> Publicación en boletines oficiales cuando no es posible la notificación personal.</li>
+                <li><strong>Electrónicamente:</strong> A través de plataformas digitales como DEH (Dirección Electrónica Habilitada).</li>
+            </ul>
+
+            <h3>Proceso de impugnación</h3>
+            <div class="proceso-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Recepción de la notificación</h4>
+                    <p>Al recibir la notificación de la multa, comienza a contar el plazo para presentar alegaciones o para el pago con descuento.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Alegaciones iniciales</h4>
+                    <p>Normalmente dispones de 20 días hábiles para presentar alegaciones y aportar pruebas que justifiquen tu versión.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Resolución</h4>
+                    <p>La administración estudia tus alegaciones y emite una resolución que puede ser estimatoria (anulando la multa) o desestimatoria.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Recurso de reposición</h4>
+                    <p>Si la resolución es desfavorable, puedes presentar un recurso de reposición en el plazo de un mes.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h4>Recurso contencioso-administrativo</h4>
+                    <p>Como última instancia, puedes acudir a los tribunales mediante un recurso contencioso-administrativo.</p>
+                </div>
+            </div>
+
+            <h3>Consecuencias del impago</h3>
+            <p>No pagar una multa puede tener serias consecuencias:</p>
+            <ul>
+                <li>Incremento de la cuantía por recargos (hasta un 20%).</li>
+                <li>Inicio de la vía de apremio con posible embargo de cuentas bancarias, salario o bienes.</li>
+                <li>En el caso de multas de tráfico, posible inmovilización del vehículo.</li>
+                <li>Inclusión en registros de morosos, dificultando el acceso a créditos o servicios.</li>
+            </ul>
+        </section>
+
+        <div class="cta">
+            <h3>¿Has recibido una multa injusta?</h3>
+            <p>Conoce tus derechos y cómo defender tu posición adecuadamente.</p>
+            <a href="#recursos" class="cta-button">Consultar recursos disponibles</a>
+        </div>
+
+        <section id="recursos">
+            <h2>Recursos y Herramientas</h2>
+            <p>Para facilitar la gestión de multas, existen diversas herramientas y recursos que pueden ser de utilidad:</p>
+            
+            <h3>Plataformas oficiales</h3>
+            <ul>
+                <li>Sede Electrónica de la DGT (para multas de tráfico)</li>
+                <li>Portales tributarios de Hacienda y Administraciones locales</li>
+                <li>Aplicaciones móviles oficiales para la gestión de sanciones</li>
+            </ul>
+            
+            <h3>Consejos prácticos</h3>
+            <ul>
+                <li>Guarda siempre toda la documentación relacionada con la multa.</li>
+                <li>Respeta los plazos establecidos para presentar recursos o realizar pagos.</li>
+                <li>Considera el pago con reducción (generalmente del 50%) si reconoces la infracción.</li>
+                <li>Solicita asistencia jurídica si la cuantía de la multa es elevada o si consideras que tienes argumentos sólidos para impugnarla.</li>
+                <li>Comprueba que la multa cumple con todos los requisitos formales antes de pagarla.</li>
+            </ul>
+        </section>
+
+        <section id="faq">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Puedo pagar una multa con descuento aunque presente alegaciones?</div>
+                <div class="faq-answer">No. Al presentar alegaciones renuncias automáticamente al procedimiento abreviado que permite el pago con descuento. Deberás esperar a la resolución.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Cuánto tiempo tiene la administración para notificarme una multa?</div>
+                <div class="faq-answer">Depende del tipo de infracción. Las multas de tráfico, por ejemplo, deben notificarse en un plazo máximo de 3 meses desde la identificación del conductor.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Qué ocurre si me niegan un recurso presentado fuera de plazo?</div>
+                <div class="faq-answer">Si presentas un recurso fuera del plazo establecido, lo más probable es que sea inadmitido por extemporáneo, sin entrar a valorar las razones de fondo.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Puede prescribir una multa ya impuesta?</div>
+                <div class="faq-answer">Sí. Las sanciones prescriben si la administración no inicia el procedimiento de cobro en los plazos establecidos: 1 año para infracciones leves, 2 años para graves y 3 años para muy graves.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">¿Es legal que me multen sin estar presente?</div>
+                <div class="faq-answer">Sí, es completamente legal. Muchas infracciones se detectan por medios automáticos (radares, cámaras) y la notificación se realiza posteriormente por los canales oficiales.</div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Enlaces Útiles</h3>
+                <ul>
+                    <li><a href="#">Legislación vigente</a></li>
+                    <li><a href="#">Consulta de multas</a></li>
+                    <li><a href="#">Formularios de recursos</a></li>
+                    <li><a href="#">Asistencia jurídica</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Normativas por sector</h3>
+                <ul>
+                    <li><a href="#">Tráfico y circulación</a></li>
+                    <li><a href="#">Tributario y fiscal</a></li>
+                    <li><a href="#">Municipal</a></li>
+                    <li><a href="#">Medioambiental</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>Email: info@infomultas.com</li>
+                    <li>Teléfono: 900 123 456</li>
+                    <li>Atención: Lun-Vie 9:00-18:00</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright container">
+            <p>&copy; 2025 Portal Informativo sobre Multas. Esta información tiene carácter meramente divulgativo.</p>
+        </div>
+    </footer>
+</body>
+</html>
